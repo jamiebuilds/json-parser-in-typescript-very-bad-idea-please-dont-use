@@ -1,0 +1,11 @@
+{
+  "name": "json-parser-in-typescript-very-bad-idea-please-dont-use",
+  "version": "1.0.0",
+  "description": "JSON Parser written entirely in TypeScript's type system",
+  "main": "json-parser-in-typescript-very-bad-idea-please-dont-use.ts",
+  "author": "Jamie Kyle <me@thejameskyle.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.1.0-dev.20200903"
+  }
+}
