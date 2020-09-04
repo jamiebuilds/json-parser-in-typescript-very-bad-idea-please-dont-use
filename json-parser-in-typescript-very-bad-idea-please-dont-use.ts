@@ -40,13 +40,17 @@ type ParseJsonValue<State extends string> =
     ? ParserError<"ParseJsonValue got generic string type">
     : EatWhitespace<State> extends `null${infer State}`
       ? [null, State]
-      : EatWhitespace<State> extends `"${infer Value}"${infer State}`
-        ? [Value, State]
-        : EatWhitespace<State> extends `[${infer State}`
-          ? ParseJsonArray<State>
-          : EatWhitespace<State> extends `{${infer State}`
-            ? ParseJsonObject<State>
-            : ParserError<`ParseJsonValue received unexpected token: ${State}`>
+      : EatWhitespace<State> extends `true${infer State}`
+        ? [true, State]
+        : EatWhitespace<State> extends `false${infer State}`
+          ? [true, State]
+          : EatWhitespace<State> extends `"${infer Value}"${infer State}`
+            ? [Value, State]
+            : EatWhitespace<State> extends `[${infer State}`
+              ? ParseJsonArray<State>
+              : EatWhitespace<State> extends `{${infer State}`
+                ? ParseJsonObject<State>
+                : ParserError<`ParseJsonValue received unexpected token: ${State}`>
 export type ParseJson<T extends string> =
   ParseJsonValue<T> extends infer Result
     ? Result extends [infer Value, string]
@@ -54,4 +58,4 @@ export type ParseJson<T extends string> =
       : Result extends ParserError<any>
         ? Result
         : ParserError<"ParseJsonValue returned unexpected Result">
-    : ParserError<"ParseJsonValue returned uninferrable Result">;
+    : ParserError<"ParseJsonValue returned uninferrable Result">
