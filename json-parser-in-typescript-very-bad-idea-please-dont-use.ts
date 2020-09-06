@@ -51,10 +51,14 @@ type ParseJsonValue<State extends string> =
               : EatWhitespace<State> extends `{${infer State}`
                 ? ParseJsonObject<State>
                 : ParserError<`ParseJsonValue received unexpected token: ${State}`>
+type MergeInsertions<T> = 
+  T extends object 
+    ? { [K in keyof T]: MergeInsertions<T[K]> }
+    : T
 export type ParseJson<T extends string> =
   ParseJsonValue<T> extends infer Result
     ? Result extends [infer Value, string]
-      ? Value
+      ? MergeInsertions<Value>
       : Result extends ParserError<any>
         ? Result
         : ParserError<"ParseJsonValue returned unexpected Result">

@@ -8,7 +8,6 @@ import type { ParseJson } from "json-parser-in-typescript-very-bad-idea-please-d
 type Person = ParseJson<'{ "name": "Jamie Kyle", "twitter": "https://twitter.com/buildsghost" }'>
 // {
 //   "name": "Jamie Kyle",
-// } & {
 //   "twitter": "https://twitter.com/buildsghost"
 // }
 ```
