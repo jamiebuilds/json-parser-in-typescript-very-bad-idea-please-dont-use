@@ -43,7 +43,7 @@ type ParseJsonValue<State extends string> =
       : EatWhitespace<State> extends `true${infer State}`
         ? [true, State]
         : EatWhitespace<State> extends `false${infer State}`
-          ? [true, State]
+          ? [false, State]
           : EatWhitespace<State> extends `"${infer Value}"${infer State}`
             ? [Value, State]
             : EatWhitespace<State> extends `[${infer State}`
